@@ -48,7 +48,7 @@ EDA is a crucial step to understand the dataset and identify potential issues. H
   Visualize categorical feature distribution against top 10 values of target variable (Recommended_Medication)
   Visualize the top 10 distribution of the target variable (Recommended_Medication)
   
-## Data Preprocessing and Feature Engineering
+### Data Preprocessing and Feature Engineering
 
 Preprocessing is essential to prepare the data for model training. The steps include:
 
@@ -60,31 +60,63 @@ Preprocessing is essential to prepare the data for model training. The steps inc
     Categorical Features : Imputing missing values and one-hot encoding
     Text Features: Separately use CountVectorizer to convert text into bag of words
     Combining these transformations into a unified preprocessing pipeline.
-## Split dataset into Train and Test
+    
+### Split dataset into Train and Test
 
 Split features and target variable into train and test datasets for model training and ensure target classes with atleast 2 samples are present in both datasets for stratification.
 Since the target label is multilabel , encode target variable using MultiLabelBinarizer
 Evaluate distribution of target variable between train and test datasets
 
-## Baseline Performance Analysis using MultiOutputClassifier DummyClassifier and LogisticRegression
+### Baseline Performance Analysis using MultiOutputClassifier DummyClassifier and LogisticRegression
 The target variable is a multi label target and shows imbalance thru these scores
 
-Baseline Accuracy: 0.025672075563090337
-Baseline F1 Score: 0.06671387839819111
-Analysis of  confusion matrix for top 10 medications for model performance:
-Overall the model demonstrates high sensitivity and is predicting top 10 medications[Metformin,Azithromycin], with a large number of true positives. However, the relatively equal number of false positives and false negatives indicates that the model is not biased and maintains a level between precision and recall. 
+- Baseline Accuracy: 0.025672075563090337
+- Baseline F1 Score: 0.06671387839819111
+  Confusion matrix analysis for top 10 medications:
+Overall, the model demonstrates high sensitivity and is predicting top 10 medications[Metformin,Azithromycin], with a large number of true positives. However, the relatively equal number of false positives and false negatives indicates that the model is not biased and maintains a level between precision and recall. 
 
 Plot feature distribution after preprocessing
 
-## Train a simple LogisticRegression Model:
+### Train a simple LogisticRegression Model:
 
 The Logistic Regression model shows outstanding performance for the majority of classes, with perfect precision, recall, and F1-scores (all 1.00) for most classes. This indicates that the model is accurately classifying the vast majority of the samples in the dataset. 
 However, the model struggles with a few classes with low (e.g., Class 6, Class 10, Class 14, and Class 15), precision, recall, and F1-score are 0.00. Furthermore, classes with low support (e.g., Class 7, Class 9, Class 21) show imbalanced metrics with precision and recall both being around 0.50, which indicates that the model has difficulty distinguishing these smaller classes accurately. The macro average metrics (precision: 0.71, recall: 0.68, F1: 0.69) reflect this issue, suggesting that while the model is performing well on larger classes, there is room for improvement in handling imbalanced or minority classes.
 
 ## Model Evaluation
 
-Train model on DecisionTree, RandomForest, Naive Bayes(GaussianNB) , Bagging (Decision Tree) with MultiOutputClassifier
+The target variable is a Multi label classifier,the models used to train  with MultiOutputClassifier : 
+* DecisionTree
+* RandomForest 
+* Naive Bayes(GaussianNB) 
+* Bagging (Decision Tree)
 
+                     Model  Train Accuracy  Train Precision  Train Recall  \
+0            Decision Tree        1.000000              1.0      1.000000   
+3  Bagging (Decision Tree)        0.999881              1.0      0.999881   
+2     Naive Bayes Gaussian        1.000000              1.0      1.000000   
+1            Random Forest        1.000000              1.0      1.000000   
 
+   Train F1  Test Accuracy  Test Precision  Test Recall   Test F1  
+0  1.000000       0.999879        0.999819     0.999879  0.999849  
+3  0.999934       0.999576        0.999758     0.999576  0.999657  
+2  1.000000       0.999273        0.999677     0.998850  0.999062  
+1  1.000000       0.999092        0.998669     0.998487  0.998578  
+
+1. Decision Tree:
+    * Train Metrics: Perfect performance (1.0 for all metrics).
+    * Test Metrics: Slightly lower than training performance, but still close to perfect (Test Accuracy = 0.999879, Test Precision = 0.999819).
+    * General Observation: The Decision Tree has excellent performance but shows some slight overfitting due to the small difference in training vs. test scores.
+2. Bagging (Decision Tree):
+    *  Train Metrics: Almost perfect (Train Accuracy = 0.999881, Train Precision = 1.0).
+    * Test Metrics: Performance drops a little compared to the Decision Tree, but still very high (Test Accuracy = 0.999576).
+    *  General Observation: Bagging improves generalization (compared to a single decision tree), but test performance still slightly lags behind the training performance.
+3. Naive Bayes (Gaussian):
+    *  Train Metrics: Perfect performance (Train Accuracy = 1.0, Train Precision = 1.0, etc.).
+    *  Test Metrics: Very close to perfect, though recall slightly drops (Test Recall = 0.998850).
+    *  General Observation: Naive Bayes appears to generalize very well. However, the performance might slightly degrade in terms of recall compared to the other models.
+4. Random Forest:
+    * Train Metrics: Perfect performance (Train Accuracy = 1.0, Train Precision = 1.0, etc.).
+    * Test Metrics: A slight drop in test performance, particularly in precision and recall, but still quite high (Test Accuracy = 0.999092).
+    * General Observation: Random Forest performs very well and is a strong model with high generalization, although like the other models, there is a slight decrease in test performance compared to training.
 
  
