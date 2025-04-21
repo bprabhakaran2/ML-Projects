@@ -124,4 +124,15 @@ The target variable is a Multi label classifier,the models used to train  with M
     * Test Metrics: A slight drop in test performance, particularly in precision and recall, but still quite high (Test Accuracy = 0.999092).
     * General Observation: Random Forest performs very well and is a strong model with high generalization, although like the other models, there is a slight decrease in test performance compared to training.
 
- 
+Primary metrics for evaluation used:
+Confusion Matrix and Related Metrics:
+
+Provides insight into True Positives, True Negatives, False Positives, and False Negatives.
+Accuracy = (TP+TN) / (TP+TN+FP+FN)
+Precision = TP / (TP + FP)
+Recall = TP / (TP + FN)
+F1-Score = 2 * (Precision * Recall) / (Precision + Recall)
+
+ Conclusion:
+
+ Based on model evaluation and confusion matrix for multioutputclassifier on DecisionTree, RandomForest are closly selected for further analysis and hyperparameter tuning.
