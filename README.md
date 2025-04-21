@@ -70,12 +70,19 @@ Evaluate distribution of target variable between train and test datasets
 ### Baseline Performance Analysis using MultiOutputClassifier DummyClassifier and LogisticRegression
 The target variable is a multi label target and shows imbalance thru these scores
 
-- Baseline Accuracy: 0.025672075563090337
-- Baseline F1 Score: 0.06671387839819111                                           
+- Baseline Accuracy: 0.024158391862436426
+- Baseline F1 Score: 0.06703043775730538                                                      
   Confusion matrix analysis for top 10 medications:
+Analysis on confusion matrix on top 10 medications results in a large number of True positives.  
 Overall, the model demonstrates high sensitivity and is predicting top 10 medications[Metformin,Azithromycin], with a large number of true positives. However, the relatively equal number of false positives and false negatives indicates that the model is not biased and maintains a level between precision and recall. 
 
-Plot feature distribution after preprocessing
+###Class Distribution Balancing and Baseline Metrics using SMOTE: 
+Training set size: (62580, 240). Training labels size: (62580, 25)
+
+Baseline Accuracy: 0.00
+Baseline Precision: 0.07
+Baseline Recall: 0.50
+Baseline F1 Score: 0.12
 
 ### Train a simple LogisticRegression Model:
 
@@ -91,22 +98,17 @@ However, the model struggles with a few classes with low (e.g., Class 6, Class 1
 
 The target variable is a Multi label classifier,the models used to train  with MultiOutputClassifier : 
 * DecisionTree
-* RandomForest 
+* RandomForest
+* AdaBoost
 * Naive Bayes(GaussianNB) 
 * Bagging (Decision Tree)
-
-                     Model              Train Accuracy    Train Precision       Train Recall  
-0                  Decision Tree            1.000000              1.0            1.000000   
-3                 Bagging (Decision Tree)   0.999881              1.0            0.999881   
-2                 Naive Bayes Gaussian      1.000000              1.0            1.000000   
-1                 Random Forest             1.000000              1.0            1.000000   
-
-  Train F1  Test Accuracy  Test Precision  Test Recall   Test F1  
-0  1.000000       0.999879        0.999819     0.999879  0.999849  
-3  0.999934       0.999576        0.999758     0.999576  0.999657  
-2  1.000000       0.999273        0.999677     0.998850  0.999062  
-1  1.000000       0.999092        0.998669     0.998487  0.998578  
-
+                     Model      Train Accuracy  Train Precision  Train Recall   Train F1  Test Accuracy  Test Precision  Test Recall   Test F1                                          
+0            Decision Tree        1.000000              1.0      1.000000      1.000000   0.999879       0.999819        0.999879      0.999849                                       
+4                 AdaBoost        1.000000              1.0      1.000000      1.000000   0.999455       0.999698        0.999697      0.999687                             
+3  Bagging (Decision Tree)        0.999881              1.0      0.999881      0.999934   0.999576       0.999758        0.999576      0.999657                                    
+2     Naive Bayes Gaussian        1.000000              1.0      1.000000      1.000000   0.999273       0.999677        0.998850      0.999062                                      
+1            Random Forest        1.000000              1.0      1.000000      1.000000   0.999092       0.998669        0.998487      0.998578                                                                               
+                                                                            
 1. Decision Tree:
     * Train Metrics: Perfect performance (1.0 for all metrics).
     * Test Metrics: Slightly lower than training performance, but still close to perfect (Test Accuracy = 0.999879, Test Precision = 0.999819).
@@ -123,7 +125,10 @@ The target variable is a Multi label classifier,the models used to train  with M
     * Train Metrics: Perfect performance (Train Accuracy = 1.0, Train Precision = 1.0, etc.).
     * Test Metrics: A slight drop in test performance, particularly in precision and recall, but still quite high (Test Accuracy = 0.999092).
     * General Observation: Random Forest performs very well and is a strong model with high generalization, although like the other models, there is a slight decrease in test performance compared to training.
-
+5. AdaBoost:
+    * Train Metrics: Perfect performance (Train Accuracy = 1.0, Train Precision = 1.0, etc.).
+    * Test Metrics: A slight drop in test performance, particularly in precision and recall, but still quite high (Test Accuracy = 0.999455).
+    * General Observation: AdaBoost performs very well and is a strong model, although like the other models, there is a slight decrease in test performance compared to training.
 Primary metrics for evaluation used:
 Confusion Matrix and Related Metrics:
 
