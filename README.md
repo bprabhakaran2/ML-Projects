@@ -81,6 +81,8 @@ Plot feature distribution after preprocessing
 
 The Logistic Regression model shows outstanding performance for the majority of classes, with perfect precision, recall, and F1-scores (all 1.00) for most classes. This indicates that the model is accurately classifying the vast majority of the samples in the dataset. 
 However, the model struggles with a few classes with low (e.g., Class 6, Class 10, Class 14, and Class 15), precision, recall, and F1-score are 0.00. Furthermore, classes with low support (e.g., Class 7, Class 9, Class 21) show imbalanced metrics with precision and recall both being around 0.50, which indicates that the model has difficulty distinguishing these smaller classes accurately. The macro average metrics (precision: 0.71, recall: 0.68, F1: 0.69) reflect this issue, suggesting that while the model is performing well on larger classes, there is room for improvement in handling imbalanced or minority classes.
+## The feature coefficients contributing to medication recommendation are : Chronic_condition, Dosage and Symptoms
+
 
 ## Model Evaluation
 
@@ -90,13 +92,13 @@ The target variable is a Multi label classifier,the models used to train  with M
 * Naive Bayes(GaussianNB) 
 * Bagging (Decision Tree)
 
-                     Model  Train Accuracy  Train Precision  Train Recall  \
+                     Model  Train Accuracy  Train Precision  Train Recall  
 0            Decision Tree        1.000000              1.0      1.000000   
 3  Bagging (Decision Tree)        0.999881              1.0      0.999881   
 2     Naive Bayes Gaussian        1.000000              1.0      1.000000   
 1            Random Forest        1.000000              1.0      1.000000   
 
-   Train F1  Test Accuracy  Test Precision  Test Recall   Test F1  
+  Train F1  Test Accuracy  Test Precision  Test Recall   Test F1  
 0  1.000000       0.999879        0.999819     0.999879  0.999849  
 3  0.999934       0.999576        0.999758     0.999576  0.999657  
 2  1.000000       0.999273        0.999677     0.998850  0.999062  
